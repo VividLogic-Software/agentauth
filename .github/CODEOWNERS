@@ -1,0 +1,25 @@
+# CODEOWNERS — reviewers are automatically requested for matching paths
+# Syntax: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: maintainers review everything
+*                                   @agentauth/maintainers
+
+# Security-critical paths require two maintainer approvals
+/internal/identity/                 @agentauth/maintainers @agentauth/security
+/internal/broker/                   @agentauth/maintainers @agentauth/security
+/internal/audit/                    @agentauth/maintainers @agentauth/security
+/internal/envelope/                 @agentauth/maintainers @agentauth/security
+
+# Infrastructure and deployment
+/deploy/                            @agentauth/maintainers @agentauth/infra
+/.github/workflows/                 @agentauth/maintainers @agentauth/infra
+/Dockerfile                         @agentauth/maintainers @agentauth/infra
+/docker-compose*.yml                @agentauth/maintainers @agentauth/infra
+
+# SDKs
+/sdk/python/                        @agentauth/maintainers @agentauth/sdk
+/sdk/typescript/                    @agentauth/maintainers @agentauth/sdk
+
+# Documentation
+/docs/                              @agentauth/maintainers
+/README.md                          @agentauth/maintainers

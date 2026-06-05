@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: agentauth-config
+  namespace: agentauth
+  labels:
+    app.kubernetes.io/name: agentauth
+data:
+  redis-addr: "redis:6379"
+  nats-url: "nats://nats:4222"
+  trust-domain: "agentauth.io"
+  log-level: "info"
+  metrics-port: "9090"
+  max-delegation-depth: "8"

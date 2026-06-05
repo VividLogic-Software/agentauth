@@ -1,0 +1,24 @@
+apiVersion: v2
+name: agentauth
+description: The open-source identity & authorization plane for AI agents
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+home: https://agentauth.io
+sources:
+  - https://github.com/VividLogic-Software/agentauth
+maintainers:
+  - name: AgentAuth Contributors
+    email: hello@agentauth.io
+keywords:
+  - ai-agents
+  - authorization
+  - identity
+  - mcp
+  - spiffe
+  - oauth
+  - security
+annotations:
+  artifacthub.io/category: security
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/prerelease: "true"

@@ -1,0 +1,83 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - gofmt
+    - goimports
+    - misspell
+    - unconvert
+    - unparam
+    - gocritic
+    - revive
+    - gosec
+    - noctx
+    - bodyclose
+    - contextcheck
+    - exhaustive
+    - durationcheck
+    - forbidigo
+    - godot
+    - nilerr
+    - nilnil
+    - predeclared
+    - reassign
+    - tenv
+    - tparallel
+    - wastedassign
+
+linters-settings:
+  goimports:
+    local-prefixes: github.com/VividLogic-Software/agentauth
+
+  gosec:
+    excludes:
+      - G101 # Potential hardcoded credentials (too many false positives in tests)
+      - G304 # File path provided as taint input
+
+  revive:
+    rules:
+      - name: exported
+        arguments:
+          - disableStutteringCheck
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - performance
+      - style
+    disabled-checks:
+      - paramTypeCombine
+
+  godot:
+    scope: toplevel
+    period: true
+
+issues:
+  exclude-rules:
+    # Test files can use unsafe patterns
+    - path: "_test\\.go"
+      linters:
+        - gosec
+        - godot
+
+    # Examples can be less strict
+    - path: "examples/"
+      linters:
+        - gosec
+        - errcheck
+
+    # Generated code
+    - path: ".*\\.pb\\.go"
+      linters:
+        - all

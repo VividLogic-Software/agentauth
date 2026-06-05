@@ -1,0 +1,6 @@
+# Fund AgentAuth development
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+github: [agentauth]
+open_collective: agentauth
+custom: ["https://agentauth.io/sponsor"]

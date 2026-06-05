@@ -1,0 +1,57 @@
+version: "3.9"
+
+# Development override for docker-compose.yml
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  agentauth:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    command: go run ./cmd/agentauth-server
+    volumes:
+      - .:/build
+      - go_cache:/root/.cache/go-build
+      - go_modules:/go/pkg/mod
+    environment:
+      AGENTAUTH_LOG_LEVEL: debug
+      AGENTAUTH_JWT_SIGNING_KEY: dev-signing-key-not-for-production
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+      - "2345:2345"  # Delve debugger
+
+  # pgAdmin for development database inspection
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@agentauth.io
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - agentauth
+
+  # RedisInsight for development cache inspection
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis
+    networks:
+      - agentauth
+
+  # NATS monitoring dashboard
+  nats-dashboard:
+    image: natsio/nats-box:latest
+    command: sleep infinity
+    networks:
+      - agentauth
+
+volumes:
+  go_cache:
+  go_modules:

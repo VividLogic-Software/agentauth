@@ -1,0 +1,99 @@
+version: "3.9"
+
+# AgentAuth production-like docker-compose stack
+# Usage: docker compose up -d
+
+services:
+  agentauth:
+    image: ghcr.io/vividlogic-software/agentauth:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      AGENTAUTH_HOST: 0.0.0.0
+      AGENTAUTH_PORT: 8080
+      AGENTAUTH_POSTGRES_DSN: postgres://agentauth:${POSTGRES_PASSWORD:-agentauth}@postgres:5432/agentauth?sslmode=disable
+      AGENTAUTH_REDIS_ADDR: redis:6379
+      AGENTAUTH_NATS_URL: nats://nats:4222
+      AGENTAUTH_TRUST_DOMAIN: agentauth.io
+      AGENTAUTH_LOG_LEVEL: info
+      AGENTAUTH_JWT_SIGNING_KEY: ${AGENTAUTH_JWT_SIGNING_KEY}
+    volumes:
+      - ./configs:/etc/agentauth:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      nats:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - agentauth
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agentauth
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agentauth}
+      POSTGRES_DB: agentauth
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentauth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agentauth
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: >
+      redis-server
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save 60 1000
+      --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agentauth
+
+  nats:
+    image: nats:latest
+    restart: unless-stopped
+    command: >
+      --name agentauth-nats
+      --cluster_name agentauth
+      --js
+      --sd /data
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - nats_data:/data
+    networks:
+      - agentauth
+
+volumes:
+  postgres_data:
+  redis_data:
+  nats_data:
+
+networks:
+  agentauth:
+    driver: bridge

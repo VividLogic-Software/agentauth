@@ -1,0 +1,104 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agentauth"
+version = "0.1.0"
+description = "The open-source identity & authorization plane for AI agents"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+authors = [
+    { name = "AgentAuth Contributors", email = "hello@agentauth.io" },
+]
+keywords = [
+    "agents",
+    "ai",
+    "authorization",
+    "authentication",
+    "mcp",
+    "spiffe",
+    "oauth",
+    "identity",
+    "security",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+# Async HTTP client support
+http = ["aiohttp>=3.9,<4"]
+
+# Full cryptographic support for local signing/verification
+crypto = [
+    "PyJWT>=2.8,<3",
+    "cryptography>=42,<45",
+]
+
+# FastAPI integration
+fastapi = ["fastapi>=0.110,<1", "starlette>=0.36"]
+
+# LangChain integration
+langchain = ["langchain>=0.2", "langchain-core>=0.2"]
+
+# Full install with all extras
+all = [
+    "aiohttp>=3.9,<4",
+    "PyJWT>=2.8,<3",
+    "cryptography>=42,<45",
+    "fastapi>=0.110,<1",
+    "starlette>=0.36",
+]
+
+[project.urls]
+Homepage = "https://agentauth.io"
+Documentation = "https://docs.agentauth.io"
+Repository = "https://github.com/VividLogic-Software/agentauth"
+Issues = "https://github.com/VividLogic-Software/agentauth/issues"
+Changelog = "https://github.com/VividLogic-Software/agentauth/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["agentauth"]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "aiohttp>=3.9",
+    "PyJWT>=2.8",
+    "cryptography>=42",
+    "fastapi>=0.110",
+    "httpx>=0.27",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest tests/ -v"
+test-cov = "pytest tests/ --cov=agentauth --cov-report=xml"
+lint = "ruff check agentauth/"
+type-check = "mypy agentauth/"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "N", "W", "UP", "ANN"]
+ignore = ["ANN101", "ANN102"]
