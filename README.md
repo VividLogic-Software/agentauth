@@ -1,12 +1,12 @@
 <div align="center">
 
 ```
-    _                    _   _         _   _
-   / \   __ _  ___ _ __ | |_/ \  _   _| |_| |__
-  / _ \ / _` |/ _ \ '_ \| __/ _ \| | | | __| '_ \
- / ___ \ (_| |  __/ | | | || (_) | |_| | |_| | | |
-/_/   \_\__, |\___|_| |_|\__\___/ \__,_|\__|_| |_|
-         |___/
+   █████╗  ██████╗ ███████╗███╗   ██╗████████╗ █████╗ ██╗   ██╗████████╗██╗  ██╗
+  ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔══██╗██║   ██║╚══██╔══╝██║  ██║
+  ███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ███████║██║   ██║   ██║   ███████║
+  ██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ██╔══██║██║   ██║   ██║   ██╔══██║
+  ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ██║  ██║╚██████╔╝   ██║   ██║  ██║
+  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝
 ```
 
 **The Open-Source Identity & Authorization Plane for AI Agents**
@@ -377,6 +377,16 @@ AgentAuth is the only **credibly neutral, open-source** option. Proprietary alte
 | Standards-based (SPIFFE, OAuth) | ✅ | Partial | Your choice |
 | Time to production | Hours | Days | Months |
 | Cost | Free + cloud option | $$$$ | Engineering time |
+
+---
+
+## Star History
+
+<div align="center">
+
+[![Star History Chart](https://api.star-history.com/svg?repos=VividLogic-Software/agentauth&type=Date)](https://star-history.com/#VividLogic-Software/agentauth&Date)
+
+</div>
 
 ---
 
