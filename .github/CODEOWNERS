@@ -1,25 +1,25 @@
 # CODEOWNERS — reviewers are automatically requested for matching paths
 # Syntax: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-# Default: maintainers review everything
-*                                   @agentauth/maintainers
+# Default: all changes require review
+*                                   @jpsanders @vividlogicsoftware
 
-# Security-critical paths require two maintainer approvals
-/internal/identity/                 @agentauth/maintainers @agentauth/security
-/internal/broker/                   @agentauth/maintainers @agentauth/security
-/internal/audit/                    @agentauth/maintainers @agentauth/security
-/internal/envelope/                 @agentauth/maintainers @agentauth/security
+# Security-critical paths
+/internal/identity/                 @jpsanders @vividlogicsoftware
+/internal/broker/                   @jpsanders @vividlogicsoftware
+/internal/audit/                    @jpsanders @vividlogicsoftware
+/internal/envelope/                 @jpsanders @vividlogicsoftware
 
 # Infrastructure and deployment
-/deploy/                            @agentauth/maintainers @agentauth/infra
-/.github/workflows/                 @agentauth/maintainers @agentauth/infra
-/Dockerfile                         @agentauth/maintainers @agentauth/infra
-/docker-compose*.yml                @agentauth/maintainers @agentauth/infra
+/deploy/                            @jpsanders @vividlogicsoftware
+/.github/workflows/                 @jpsanders @vividlogicsoftware
+/Dockerfile                         @jpsanders @vividlogicsoftware
+/docker-compose*.yml                @jpsanders @vividlogicsoftware
 
 # SDKs
-/sdk/python/                        @agentauth/maintainers @agentauth/sdk
-/sdk/typescript/                    @agentauth/maintainers @agentauth/sdk
+/sdk/python/                        @jpsanders @vividlogicsoftware
+/sdk/typescript/                    @jpsanders @vividlogicsoftware
 
 # Documentation
-/docs/                              @agentauth/maintainers
-/README.md                          @agentauth/maintainers
+/docs/                              @jpsanders
+/README.md                          @jpsanders
